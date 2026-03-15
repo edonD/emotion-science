@@ -195,6 +195,31 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
+          {/* Mobile: simplified face */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="md:hidden flex justify-center -mt-4 mb-4"
+          >
+            <div className="bg-card border border-border rounded-lg px-4 py-3 inline-flex items-center gap-3">
+              <FaceDiagram
+                emotion={emotions[currentEmotion]}
+                size={60}
+                showLabels={false}
+                showMuscles={false}
+                animated={false}
+              />
+              <div>
+                <p className="font-mono text-[10px] text-muted">DETECTING</p>
+                <p className="font-mono text-xs text-accent">
+                  {emotions[currentEmotion].charAt(0).toUpperCase() +
+                    emotions[currentEmotion].slice(1)}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Right: Interactive SVG Face + Terminal */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,7 +1,49 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerChild } from "../lib/animations";
+
+// Animated counter hook
+function useAnimatedCounter(target: number, duration: number = 1500) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [hasStarted, target, duration]);
+
+  return { count, ref };
+}
 
 const testimonials = [
   {
@@ -48,12 +90,26 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  { value: "12,400+", label: "Professionals trained" },
-  { value: "89%", label: "Average post-training accuracy" },
-  { value: "4.8/5", label: "Course satisfaction rating" },
-  { value: "94%", label: "Would recommend to colleagues" },
-];
+function AnimatedStat({
+  value,
+  suffix,
+  label,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+}) {
+  const { count, ref } = useAnimatedCounter(value);
+  return (
+    <div ref={ref} className="text-center">
+      <p className="font-mono text-2xl font-semibold text-accent">
+        {count.toLocaleString()}
+        {suffix}
+      </p>
+      <p className="text-xs text-muted mt-1">{label}</p>
+    </div>
+  );
+}
 
 export default function SocialProof() {
   return (
@@ -73,19 +129,15 @@ export default function SocialProof() {
           </p>
         </motion.div>
 
-        {/* Stats bar */}
+        {/* Animated stats bar */}
         <motion.div
           {...fadeUp}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 border border-border rounded-lg p-6 bg-card"
         >
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-mono text-2xl font-semibold text-accent">
-                {stat.value}
-              </p>
-              <p className="text-xs text-muted mt-1">{stat.label}</p>
-            </div>
-          ))}
+          <AnimatedStat value={12400} suffix="+" label="Professionals trained" />
+          <AnimatedStat value={89} suffix="%" label="Average post-training accuracy" />
+          <AnimatedStat value={48} suffix="/5" label="Course satisfaction rating" />
+          <AnimatedStat value={94} suffix="%" label="Would recommend to colleagues" />
         </motion.div>
 
         {/* Testimonials grid */}
@@ -94,17 +146,19 @@ export default function SocialProof() {
             <motion.div
               key={t.name}
               {...staggerChild(i)}
-              className="bg-card border border-border rounded-lg p-6 flex flex-col"
+              className="group bg-card border border-border rounded-lg p-6 flex flex-col hover:border-accent/30 hover:shadow-md transition-all"
             >
-              <p className="text-sm leading-relaxed text-muted flex-1 mb-4">
-                &ldquo;{t.quote}&rdquo;
+              {/* Quote marks */}
+              <span className="text-accent/20 text-3xl font-serif leading-none mb-2">
+                &ldquo;
+              </span>
+              <p className="text-sm leading-relaxed text-muted flex-1 mb-4 group-hover:text-foreground/80 transition-colors">
+                {t.quote}
               </p>
-              <div>
+              <div className="pt-4 border-t border-border">
                 <p className="text-sm font-semibold">{t.name}</p>
                 <p className="text-xs text-muted">{t.role}</p>
-                <p className="text-xs text-accent font-mono mt-1">
-                  {t.metric}
-                </p>
+                <p className="text-xs text-accent font-mono mt-1">{t.metric}</p>
               </div>
             </motion.div>
           ))}
@@ -113,20 +167,21 @@ export default function SocialProof() {
         {/* Trust badges */}
         <motion.div
           {...fadeUp}
-          className="flex flex-wrap justify-center gap-6 mt-14 text-xs text-muted font-mono"
+          className="flex flex-wrap justify-center gap-4 mt-14"
         >
-          <span className="border border-border px-4 py-2 rounded-full">
-            Evidence-Based Methodology
-          </span>
-          <span className="border border-border px-4 py-2 rounded-full">
-            FACS-Aligned Curriculum
-          </span>
-          <span className="border border-border px-4 py-2 rounded-full">
-            Peer-Reviewed Research
-          </span>
-          <span className="border border-border px-4 py-2 rounded-full">
-            30-Day Money-Back Guarantee
-          </span>
+          {[
+            "Evidence-Based Methodology",
+            "FACS-Aligned Curriculum",
+            "Peer-Reviewed Research",
+            "30-Day Money-Back Guarantee",
+          ].map((badge) => (
+            <span
+              key={badge}
+              className="text-xs text-muted font-mono border border-border px-4 py-2 rounded-full hover:border-accent/30 hover:text-accent transition-all cursor-default"
+            >
+              {badge}
+            </span>
+          ))}
         </motion.div>
       </div>
     </section>
