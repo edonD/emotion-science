@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf8;
+  --foreground: #1a1a1a;
+  --accent: #0d7377;
+  --accent-light: #e6f5f5;
+  --border: #e5e5e0;
+  --muted: #6b6b6b;
+  --card-bg: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-card: var(--card-bg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+.ascii-art {
+  font-family: var(--font-mono), 'Courier New', monospace;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: pre;
+  font-size: 12px;
+}
+
+.ascii-art-lg {
+  font-family: var(--font-mono), 'Courier New', monospace;
+  line-height: 1.15;
+  letter-spacing: 0;
+  white-space: pre;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .ascii-art {
+    font-size: 13px;
+  }
+  .ascii-art-lg {
+    font-size: 16px;
+  }
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
 }
