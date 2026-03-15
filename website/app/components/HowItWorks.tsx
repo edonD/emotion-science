@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { statsAscii } from "../lib/ascii";
 import { fadeUp, staggerChild } from "../lib/animations";
 
 const steps = [
@@ -137,21 +136,6 @@ export default function HowItWorks() {
                 Based on published training studies (Hurley et al., 2014;
                 Matsumoto &amp; Hwang, 2011)
               </p>
-            </motion.div>
-
-            {/* ASCII stats (kept for tech aesthetic) */}
-            <motion.div
-              {...fadeUp}
-              className="bg-[#1a1a1a] border border-[#333] rounded-lg p-5"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
-              </div>
-              <pre className="font-mono text-xs text-green-400/80 select-none overflow-x-auto leading-relaxed">
-                {statsAscii}
-              </pre>
             </motion.div>
 
             {/* Key metric callout */}

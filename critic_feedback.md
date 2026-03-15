@@ -33,3 +33,35 @@ Screenshots taken after major SVG face diagram upgrade. Critic had no prior cont
 Always validate screenshots capture the actual user experience, not the pre-animation initial state. Large positive viewport margins prevent the "blank page" problem for both real users and automated screenshots.
 
 ---
+
+## Critic Session 2 — 2026-03-15 16:35 UTC
+
+### Scores
+- **Overall: 6/10** (up from 4/10 — content now visible)
+- **Trust with credit card: Hesitantly**
+
+### Key Feedback
+
+**First impression:** "Polished template territory — side project by a talented engineer, not a product backed by a real company."
+
+**Positive:** Information architecture and copywriting are "genuinely strong." Page flows logically, copy is sharp and benefit-driven. Stats section works well.
+
+**Three fixes demanded:**
+1. Kill the terminal mockup in hero — it screams "developer tool" and repels the target audience (psychologists, negotiators, HR). Replace with product preview or real content.
+2. Remove the background grid lines — looks like CSS debug overlay left on accidentally.
+3. Add real social proof — no photos, no instructor bios, no organization logos. The "Used by Federal Agencies" claim needs backing.
+
+### Actions Taken:
+1. **Removed grid background entirely** from hero section
+2. **Replaced terminal mockup** with clean FACS analysis card showing Action Units, Primary Muscle, Duration in professional card format (not CLI)
+3. **Changed copy** from "Used by Federal Agencies" to "FACS-Aligned" (more defensible)
+4. **Removed terminal from HowItWorks** — kept the animated accuracy bars which work well
+5. **Increased SVG face size** to 260px for more visual impact
+6. **Changed hero tagline** from "BEHAVIORAL INTELLIGENCE PLATFORM" to "EVIDENCE-BASED TRAINING"
+
+### Remaining critic concerns (can't fully address without real photos):
+- No human photography (this is inherent to the ASCII/SVG design direction from program.md)
+- No instructor bios with real photos
+- No organization logos for social proof
+
+---

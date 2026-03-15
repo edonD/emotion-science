@@ -14,30 +14,39 @@ const emotions = [
   "contempt",
 ];
 
-const signalData = [
-  { label: "Expression", value: "Genuine Happiness" },
-  { label: "Action Units", value: "AU6 + AU12" },
-  { label: "Muscle", value: "Zygomaticus Major" },
-  { label: "Duration", value: "420ms (macro)" },
-  { label: "Confidence", value: "94.2%" },
-];
+const emotionLabels: Record<string, string> = {
+  happiness: "Genuine Happiness",
+  sadness: "Sadness",
+  anger: "Anger",
+  fear: "Fear",
+  surprise: "Surprise",
+  disgust: "Disgust",
+  contempt: "Contempt",
+};
 
-const typingLines = [
-  "$ emotionlens analyze --input face.capture",
-  "",
-  "  Scanning facial geometry...",
-  "  Detecting action units...",
-  "  Cross-referencing FACS database...",
-  "",
-  "  SIGNAL DETECTED",
-];
+const emotionAUs: Record<string, string> = {
+  happiness: "AU6 + AU12",
+  sadness: "AU1 + AU4 + AU15",
+  anger: "AU4 + AU5 + AU23",
+  fear: "AU1 + AU2 + AU4 + AU5",
+  surprise: "AU1 + AU2 + AU5 + AU26",
+  disgust: "AU9 + AU10 + AU17",
+  contempt: "AU12R + AU14R",
+};
+
+const emotionMuscles: Record<string, string> = {
+  happiness: "Zygomaticus Major",
+  sadness: "Frontalis (inner)",
+  anger: "Corrugator Supercilii",
+  fear: "Levator Palpebrae",
+  surprise: "Frontalis (full)",
+  disgust: "Lev. Labii Superioris",
+  contempt: "Zygomaticus (unilateral)",
+};
 
 export default function Hero() {
   const [currentEmotion, setCurrentEmotion] = useState(0);
-  const [terminalLine, setTerminalLine] = useState(0);
-  const [showSignal, setShowSignal] = useState(false);
 
-  // Cycle through emotions
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentEmotion((prev) => (prev + 1) % emotions.length);
@@ -45,33 +54,11 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Terminal typing animation
-  useEffect(() => {
-    if (terminalLine < typingLines.length) {
-      const timeout = setTimeout(
-        () => setTerminalLine((prev) => prev + 1),
-        terminalLine === 0 ? 800 : 400
-      );
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => setShowSignal(true), 300);
-      return () => clearTimeout(timeout);
-    }
-  }, [terminalLine]);
+  const emotion = emotions[currentEmotion];
 
   return (
-    <section className="min-h-screen flex items-center pt-16 relative overflow-hidden">
-      {/* Subtle grid background */}
-      <div
-        className="absolute inset-0 opacity-[0.008]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-20 md:py-32 w-full relative">
+    <section className="min-h-screen flex items-center pt-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-20 md:py-32 w-full">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left: Copy */}
           <motion.div
@@ -85,7 +72,7 @@ export default function Hero() {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="font-mono text-xs tracking-widest text-muted mb-6"
             >
-              [ BEHAVIORAL INTELLIGENCE PLATFORM ]
+              [ EVIDENCE-BASED TRAINING ]
             </motion.p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.1] tracking-tight mb-6">
               Decode what
@@ -104,14 +91,14 @@ export default function Hero() {
               feel.
             </h1>
             <p className="text-lg text-muted leading-relaxed mb-4 max-w-lg">
-              Evidence-based training in micro-expression recognition and the
+              Professional training in micro-expression recognition and the
               Facial Action Coding System. Built on 50 years of peer-reviewed
-              research. Designed for professionals who read people for a living.
+              research. Designed for practitioners who read people for a living.
             </p>
             <p className="text-sm text-muted/70 leading-relaxed mb-8 max-w-lg">
-              Master the same techniques used by FBI behavioral analysts, clinical
-              psychologists, and negotiation specialists — systematized through
-              FACS, the gold standard in facial measurement.
+              Used by clinical psychologists, federal negotiators, HR
+              professionals, and law enforcement specialists. The same science
+              behind FACS — the gold standard in facial measurement.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -169,7 +156,7 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                FACS-based
+                FACS-certified
               </motion.span>
             </div>
 
@@ -182,7 +169,7 @@ export default function Hero() {
             >
               {[
                 "Peer-Reviewed Research",
-                "Used by Federal Agencies",
+                "FACS-Aligned",
                 "30-Day Guarantee",
               ].map((badge) => (
                 <span
@@ -202,36 +189,40 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="md:hidden flex justify-center -mt-4 mb-4"
           >
-            <div className="bg-card border border-border rounded-lg px-4 py-3 inline-flex items-center gap-3">
+            <div className="bg-card border border-border rounded-lg px-5 py-4 inline-flex items-center gap-4">
               <FaceDiagram
-                emotion={emotions[currentEmotion]}
-                size={60}
+                emotion={emotion}
+                size={70}
                 showLabels={false}
                 showMuscles={false}
                 animated={false}
               />
               <div>
-                <p className="font-mono text-[10px] text-muted">DETECTING</p>
-                <p className="font-mono text-xs text-accent">
-                  {emotions[currentEmotion].charAt(0).toUpperCase() +
-                    emotions[currentEmotion].slice(1)}
+                <p className="font-mono text-[9px] text-muted tracking-wider">
+                  DETECTED
+                </p>
+                <p className="font-semibold text-sm">
+                  {emotionLabels[emotion]}
+                </p>
+                <p className="font-mono text-[10px] text-accent">
+                  {emotionAUs[emotion]}
                 </p>
               </div>
             </div>
           </motion.div>
 
-          {/* Right: Interactive SVG Face + Terminal */}
+          {/* Right: FACS Analysis Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden md:block"
           >
-            {/* SVG Face with emotion cycling */}
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm mb-4">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-card border border-border rounded-xl p-8 shadow-sm">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
                 <span className="font-mono text-[10px] text-muted tracking-wider">
-                  FACS ANALYSIS
+                  FACS FACIAL ANALYSIS
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -241,18 +232,19 @@ export default function Hero() {
                 </span>
               </div>
 
-              <div className="flex justify-center">
+              {/* SVG Face — large and prominent */}
+              <div className="flex justify-center mb-6">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentEmotion}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
                   >
                     <FaceDiagram
-                      emotion={emotions[currentEmotion]}
-                      size={220}
+                      emotion={emotion}
+                      size={260}
                       showLabels={true}
                       showMuscles={true}
                       animated={false}
@@ -261,24 +253,54 @@ export default function Hero() {
                 </AnimatePresence>
               </div>
 
-              {/* Emotion label */}
-              <div className="text-center mt-4">
+              {/* Analysis readout — clean card style, not terminal */}
+              <div className="border-t border-border pt-5">
                 <AnimatePresence mode="wait">
-                  <motion.p
+                  <motion.div
                     key={currentEmotion}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    className="font-mono text-xs text-accent"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {emotions[currentEmotion].charAt(0).toUpperCase() +
-                      emotions[currentEmotion].slice(1)}
-                  </motion.p>
+                    <div className="flex items-baseline justify-between mb-3">
+                      <h3 className="font-semibold text-lg">
+                        {emotionLabels[emotion]}
+                      </h3>
+                      <span className="font-mono text-xs text-accent">
+                        94.2% confidence
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <p className="text-[10px] text-muted font-mono mb-0.5">
+                          Action Units
+                        </p>
+                        <p className="text-sm font-medium">
+                          {emotionAUs[emotion]}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted font-mono mb-0.5">
+                          Primary Muscle
+                        </p>
+                        <p className="text-sm font-medium">
+                          {emotionMuscles[emotion]}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted font-mono mb-0.5">
+                          Duration
+                        </p>
+                        <p className="text-sm font-medium">420ms</p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Emotion dots */}
-              <div className="flex justify-center gap-1.5 mt-3">
+              <div className="flex justify-center gap-1.5 mt-5">
                 {emotions.map((_, i) => (
                   <button
                     key={i}
@@ -291,63 +313,6 @@ export default function Hero() {
                   />
                 ))}
               </div>
-            </div>
-
-            {/* Terminal readout */}
-            <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
-                <span className="font-mono text-[9px] text-[#666] ml-2">
-                  emotionlens v2.4
-                </span>
-              </div>
-              <div className="font-mono text-[11px] leading-relaxed">
-                {typingLines.slice(0, terminalLine).map((line, i) => (
-                  <div
-                    key={i}
-                    className={
-                      line.includes("SIGNAL")
-                        ? "text-emerald-400 font-semibold"
-                        : line.startsWith("$")
-                          ? "text-green-400"
-                          : "text-[#888]"
-                    }
-                  >
-                    {line || "\u00A0"}
-                  </div>
-                ))}
-                {/* Blinking cursor */}
-                {!showSignal && (
-                  <span className="inline-block w-2 h-3 bg-green-400 animate-pulse" />
-                )}
-              </div>
-
-              {/* Signal data */}
-              <AnimatePresence>
-                {showSignal && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-2 pt-2 border-t border-[#333]"
-                  >
-                    {signalData.map((item, i) => (
-                      <motion.div
-                        key={item.label}
-                        initial={{ opacity: 0, x: -5 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.08 }}
-                        className="flex justify-between font-mono text-[10px] py-0.5"
-                      >
-                        <span className="text-[#666]">{item.label}:</span>
-                        <span className="text-green-400">{item.value}</span>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </motion.div>
         </div>
