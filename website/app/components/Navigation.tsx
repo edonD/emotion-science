@@ -1,10 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Scroll progress bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const links = [
     { label: "Science", href: "#science" },
@@ -15,9 +30,24 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-background/80 backdrop-blur-sm border-b border-transparent"
+      }`}
+    >
+      {/* Progress bar */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent origin-left"
+        style={{ scaleX }}
+      />
+
       <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 h-16 flex items-center justify-between">
-        <a href="#" className="font-mono text-sm tracking-wider font-semibold">
+        <a
+          href="#"
+          className="font-mono text-sm tracking-wider font-semibold hover:text-accent transition-colors"
+        >
           EMOTIONLENS
         </a>
 
@@ -27,9 +57,10 @@ export default function Navigation() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted hover:text-foreground transition-colors"
+              className="text-sm text-muted hover:text-foreground transition-colors relative group"
             >
               {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-200" />
             </a>
           ))}
           <a
@@ -48,13 +79,19 @@ export default function Navigation() {
         >
           <div className="w-5 flex flex-col gap-1">
             <span
-              className={`block h-px bg-foreground transition-transform ${mobileOpen ? "rotate-45 translate-y-1" : ""}`}
+              className={`block h-px bg-foreground transition-transform ${
+                mobileOpen ? "rotate-45 translate-y-1" : ""
+              }`}
             />
             <span
-              className={`block h-px bg-foreground transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
+              className={`block h-px bg-foreground transition-opacity ${
+                mobileOpen ? "opacity-0" : ""
+              }`}
             />
             <span
-              className={`block h-px bg-foreground transition-transform ${mobileOpen ? "-rotate-45 -translate-y-1" : ""}`}
+              className={`block h-px bg-foreground transition-transform ${
+                mobileOpen ? "-rotate-45 -translate-y-1" : ""
+              }`}
             />
           </div>
         </button>
