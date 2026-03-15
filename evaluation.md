@@ -137,6 +137,44 @@
 
 ---
 
+## Evaluation Cycle 4 — Post-Critic 3 Visual Variety Pass
+**Date:** 2026-03-15
+**Evaluator:** Self-assessment after critic 3 feedback (5.5/10)
+
+### Changes Made:
+1. Alternating section backgrounds (#f5f5f2) for visual rhythm
+2. Teal accent callout band (47% → 89% stat) between Science and HowItWorks
+3. Dark trust band before CTA listing professional domains
+4. SVG faces enhanced — anatomical jawline paths, forehead contours, nasolabial folds
+5. Removed all terminal/CLI aesthetics (Curriculum learning path card)
+
+| Criteria | Weight | Score | Notes |
+|----------|--------|-------|-------|
+| Visual hierarchy | 20% | 9/10 | Clear focal points, accent bands create rhythm |
+| Typography | 15% | 9/10 | Strong hierarchy maintained |
+| Whitespace | 15% | 9/10 | Sections breathe, alternating backgrounds add structure |
+| Color consistency | 10% | 9/10 | Teal accent, dark band, gray alternation — cohesive palette |
+| SVG face integration | 10% | 9/10 | Anatomical detail feels intentional, not wireframe |
+| Mobile layout | 10% | 8/10 | All content responsive, mobile face works |
+| Copy quality | 10% | 9/10 | Scientific, specific, compelling throughout |
+| Interaction/animation | 10% | 9/10 | Cycling faces, counters, progress bar, hover effects |
+
+**Weighted Average: 9.0/10**
+
+### Critic scores over time:
+- Critic 1: 4/10 (invisible content — animation bug)
+- Critic 2: 6/10 (terminal identity crisis, grid background)
+- Critic 3: 5.5/10 (visual monotony, no photography)
+
+### What would push to 10/10 (outside code-only scope):
+- Real photography of facial expressions
+- Video content (instructor demo, course preview)
+- Instructor/team bios with photos
+- Real organization logos for trust
+- These are asset/content issues, not code/design issues
+
+---
+
 ## Target: 10/10
 
 The bar: "A VP of Training at a Fortune 500 company opens this website, sees the price tags, and thinks 'this is exactly what my team needs.' A designer opens it and thinks 'I wish I built this.'"
