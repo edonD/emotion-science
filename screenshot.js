@@ -7,7 +7,7 @@ const SCREENSHOTS_DIR = path.join(__dirname, "screenshots");
 const WEBSITE_DIR = path.join(__dirname, "website");
 const PORT = 3077;
 
-async function waitForServer(url, timeout = 30000) {
+async function waitForServer(url, timeout = 60000) {
   const start = Date.now();
   while (Date.now() - start < timeout) {
     try {
@@ -21,25 +21,59 @@ async function waitForServer(url, timeout = 30000) {
   throw new Error("Server did not start in time");
 }
 
+async function forceAllVisible(page) {
+  // Inject CSS that overrides framer-motion's opacity:0 initial states
+  await page.addStyleTag({
+    content: `
+      [style*="opacity: 0"], [style*="opacity:0"] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    `,
+  });
+  // Also force via JS - find all elements with opacity 0 and make them visible
+  await page.evaluate(() => {
+    document.querySelectorAll("*").forEach((el) => {
+      const style = window.getComputedStyle(el);
+      if (parseFloat(style.opacity) < 0.1) {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      }
+    });
+  });
+  await new Promise((r) => setTimeout(r, 500));
+}
+
 async function autoScroll(page) {
+  // Wait for React hydration
+  await new Promise((r) => setTimeout(r, 3000));
+
+  // Slow scroll to trigger IntersectionObserver
   await page.evaluate(async () => {
     await new Promise((resolve) => {
       let totalHeight = 0;
-      const distance = 400;
+      const distance = 300;
       const timer = setInterval(() => {
         const scrollHeight = document.body.scrollHeight;
         window.scrollBy(0, distance);
         totalHeight += distance;
         if (totalHeight >= scrollHeight) {
           clearInterval(timer);
-          window.scrollTo(0, 0);
           resolve();
         }
-      }, 100);
+      }, 200); // Slower scroll for IntersectionObserver
     });
   });
-  // Wait for animations to complete after scroll
+
+  // Wait for animations to finish
   await new Promise((r) => setTimeout(r, 2000));
+
+  // Force any remaining hidden elements visible
+  await forceAllVisible(page);
+
+  // Scroll back to top
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await new Promise((r) => setTimeout(r, 500));
 }
 
 async function takeScreenshots() {
@@ -76,8 +110,8 @@ async function takeScreenshots() {
     const desktopPage = await browser.newPage();
     await desktopPage.setViewport({ width: 1920, height: 1080 });
     await desktopPage.goto(`http://localhost:${PORT}`, {
-      waitUntil: "networkidle0",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
     });
 
     // Scroll through entire page to trigger all animations
@@ -130,8 +164,8 @@ async function takeScreenshots() {
     const mobilePage = await browser.newPage();
     await mobilePage.setViewport({ width: 390, height: 844 });
     await mobilePage.goto(`http://localhost:${PORT}`, {
-      waitUntil: "networkidle0",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
     });
     await autoScroll(mobilePage);
 
