@@ -33,6 +33,7 @@ body {
   color: white;
 }
 
+/* ASCII art styles */
 .ascii-art {
   font-family: var(--font-mono), 'Courier New', monospace;
   line-height: 1.2;
@@ -58,8 +59,53 @@ body {
   }
 }
 
+/* Section dividers */
 .section-divider {
   border: none;
   border-top: 1px solid var(--border);
   margin: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+details summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth scroll behavior respects reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Details/summary clean styling */
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
 }
