@@ -19,20 +19,29 @@ export default function Home() {
         <Hero />
         <hr className="section-divider" />
         <Science />
-        <hr className="section-divider" />
-        <HowItWorks />
+        {/* Tinted section band for visual variety */}
+        <div className="bg-[#f5f5f2]">
+          <hr className="section-divider" />
+          <HowItWorks />
+        </div>
         <hr className="section-divider" />
         <Courses />
-        <hr className="section-divider" />
-        <Applications />
+        <div className="bg-[#f5f5f2]">
+          <hr className="section-divider" />
+          <Applications />
+        </div>
         <hr className="section-divider" />
         <FACSSection />
-        <hr className="section-divider" />
-        <Curriculum />
+        <div className="bg-[#f5f5f2]">
+          <hr className="section-divider" />
+          <Curriculum />
+        </div>
         <hr className="section-divider" />
         <SocialProof />
-        <hr className="section-divider" />
-        <FAQ />
+        <div className="bg-[#f5f5f2]">
+          <hr className="section-divider" />
+          <FAQ />
+        </div>
         <hr className="section-divider" />
         <CTA />
       </main>

@@ -159,15 +159,38 @@ export default function FaceDiagram({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Face outline */}
-      <ellipse
-        cx="50"
-        cy="48"
-        rx="30"
-        ry="35"
+      {/* Face outline — anatomical jawline shape */}
+      <path
+        d="M 50 13 Q 25 13, 20 40 Q 18 55, 30 68 Q 38 78, 50 80 Q 62 78, 70 68 Q 82 55, 80 40 Q 75 13, 50 13"
         stroke={color}
         strokeWidth="1.2"
         opacity="0.5"
+        fill="none"
+      />
+
+      {/* Forehead contour line */}
+      <path
+        d="M 28 28 Q 38 24, 50 25 Q 62 24, 72 28"
+        stroke={color}
+        strokeWidth="0.3"
+        opacity="0.15"
+        fill="none"
+      />
+
+      {/* Nasolabial fold hints */}
+      <path
+        d="M 38 48 Q 36 53, 37 57"
+        stroke="currentColor"
+        strokeWidth="0.4"
+        opacity="0.2"
+        fill="none"
+      />
+      <path
+        d="M 62 48 Q 64 53, 63 57"
+        stroke="currentColor"
+        strokeWidth="0.4"
+        opacity="0.2"
+        fill="none"
       />
 
       {/* Muscle highlight regions */}
