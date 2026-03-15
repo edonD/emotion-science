@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const testimonials = [
   {
@@ -58,12 +59,7 @@ export default function SocialProof() {
   return (
     <section id="testimonials" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div {...fadeUp}>
           <p className="font-mono text-xs tracking-widest text-muted mb-4">
             [ RESULTS ]
           </p>
@@ -79,10 +75,7 @@ export default function SocialProof() {
 
         {/* Stats bar */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          {...fadeUp}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 border border-border rounded-lg p-6 bg-card"
         >
           {stats.map((stat) => (
@@ -100,10 +93,7 @@ export default function SocialProof() {
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+              {...staggerChild(i)}
               className="bg-card border border-border rounded-lg p-6 flex flex-col"
             >
               <p className="text-sm leading-relaxed text-muted flex-1 mb-4">
@@ -122,9 +112,7 @@ export default function SocialProof() {
 
         {/* Trust badges */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          {...fadeUp}
           className="flex flex-wrap justify-center gap-6 mt-14 text-xs text-muted font-mono"
         >
           <span className="border border-border px-4 py-2 rounded-full">

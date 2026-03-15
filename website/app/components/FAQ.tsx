@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const faqs = [
   {
@@ -49,12 +50,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-24 md:py-32">
       <div className="max-w-3xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div {...fadeUp}>
           <p className="font-mono text-xs tracking-widest text-muted mb-4">
             [ FAQ ]
           </p>
@@ -70,10 +66,7 @@ export default function FAQ() {
           {faqs.map((faq, i) => (
             <motion.details
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.3, delay: i * 0.03 }}
+              {...staggerChild(i)}
               className="group border border-border rounded-lg"
             >
               <summary className="px-5 py-4 cursor-pointer text-sm font-medium hover:bg-accent-light/30 transition-colors flex items-center justify-between">

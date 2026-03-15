@@ -67,25 +67,36 @@ export const emotionFaces: Record<string, string> = {
 };
 
 export const heroFace = `
-        ╭──────────────────────╮
-        │                      │
-        │    ┌──┐      ┌──┐    │
-        │    │██│      │██│    │
-        │    └──┘      └──┘    │
-        │                      │
-        │         ╭╮          │
-        │         ╰╯          │
-        │                      │
-        │     ╰──────────╯     │
-        │                      │
-        ╰──────────────────────╯
-
-   ┌─────────────────────────────────┐
-   │  READING FACIAL EXPRESSIONS     │
-   │  Action Unit 12: Lip Corner Pull│
-   │  Muscle: Zygomaticus Major      │
-   │  Signal: Genuine Happiness      │
-   └─────────────────────────────────┘`;
+             ┌─────────────────────────────┐
+             │          ╱╲    ╱╲           │
+             │         ╱  ╲  ╱  ╲          │
+             │        ╱ AU1 ╲╱ AU2╲         │
+             │       ╱  ╱╲   ╱╲  ╲        │
+             │                             │
+             │     ┌─────┐   ┌─────┐       │
+             │     │ ██  │   │  ██ │ AU5   │
+             │     │ ██  │   │  ██ │       │
+             │     └─────┘   └─────┘       │
+             │        AU6 ═══════ AU6      │
+             │                             │
+             │            ╭──╮             │
+             │            │  │  AU9        │
+             │            ╰──╯             │
+             │                             │
+             │       ╰────────────╯        │
+             │        AU12 + AU6           │
+             │      Duchenne Smile         │
+             │                             │
+             └─────────────────────────────┘
+      ┌───────────────────────────────────────┐
+      │  SIGNAL DETECTED                      │
+      │  ─────────────────────────────────    │
+      │  Expression:  Genuine Happiness       │
+      │  Action Units: AU6 + AU12             │
+      │  Muscle:      Zygomaticus Major       │
+      │  Duration:    420ms (macro)           │
+      │  Confidence:  94.2%                   │
+      └───────────────────────────────────────┘`;
 
 export const facsAsciiDiagram = `
   ┌──────── FACS: FACIAL ACTION CODING SYSTEM ─────────┐

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { statsAscii } from "../lib/ascii";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const steps = [
   {
@@ -30,13 +31,6 @@ const steps = [
   },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5 },
-};
-
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-24 md:py-32">
@@ -61,10 +55,7 @@ export default function HowItWorks() {
             {steps.map((step, i) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                {...staggerChild(i)}
                 className="flex gap-5"
               >
                 <span className="font-mono text-2xl font-semibold text-accent/40 shrink-0 w-10">
@@ -82,10 +73,7 @@ export default function HowItWorks() {
 
           {/* ASCII Stats */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            {...fadeUp}
             className="bg-card border border-border rounded-lg p-6"
           >
             <pre className="ascii-art text-accent select-none overflow-x-auto">

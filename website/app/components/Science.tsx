@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { emotionFaces } from "../lib/ascii";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const emotions = [
   {
@@ -41,13 +42,6 @@ const emotions = [
   },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5 },
-};
-
 export default function Science() {
   return (
     <section id="science" className="py-24 md:py-32">
@@ -71,10 +65,7 @@ export default function Science() {
           {emotions.map((emotion, i) => (
             <motion.div
               key={emotion.name}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+              {...staggerChild(i)}
               className="bg-card border border-border rounded-lg p-5 hover:border-accent/30 transition-colors"
             >
               <pre className={`ascii-art ${emotion.color} mb-3 select-none`}>

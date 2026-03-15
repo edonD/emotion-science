@@ -1,16 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeUp } from "../lib/animations";
 
 export default function CTA() {
   return (
     <section id="enroll" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+          {...fadeUp}
           className="bg-card border border-border rounded-xl p-10 md:p-16 text-center"
         >
           <p className="font-mono text-xs tracking-widest text-muted mb-6">

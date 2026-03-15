@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const applications = [
   {
@@ -57,12 +58,7 @@ export default function Applications() {
   return (
     <section id="applications" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div {...fadeUp}>
           <p className="font-mono text-xs tracking-widest text-muted mb-4">
             [ APPLICATIONS ]
           </p>
@@ -80,10 +76,7 @@ export default function Applications() {
           {applications.map((app, i) => (
             <motion.div
               key={app.title}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+              {...staggerChild(i)}
               className="bg-card border border-border rounded-lg p-6 hover:border-accent/30 transition-colors"
             >
               <pre className="ascii-art text-accent mb-4 select-none">

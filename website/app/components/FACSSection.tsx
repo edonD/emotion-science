@@ -2,31 +2,25 @@
 
 import { motion } from "framer-motion";
 import { facsAsciiDiagram } from "../lib/ascii";
+import { fadeUp } from "../lib/animations";
 
 const actionUnits = [
-  { au: "AU1", name: "Inner Brow Raise", muscle: "Frontalis, pars medialis", region: "Upper" },
-  { au: "AU2", name: "Outer Brow Raise", muscle: "Frontalis, pars lateralis", region: "Upper" },
-  { au: "AU4", name: "Brow Lowerer", muscle: "Corrugator supercilii", region: "Upper" },
-  { au: "AU5", name: "Upper Lid Raise", muscle: "Levator palpebrae", region: "Upper" },
-  { au: "AU6", name: "Cheek Raise", muscle: "Orbicularis oculi", region: "Upper" },
-  { au: "AU7", name: "Lid Tightener", muscle: "Orbicularis oculi", region: "Upper" },
-  { au: "AU9", name: "Nose Wrinkle", muscle: "Levator labii sup. alaeque nasi", region: "Lower" },
-  { au: "AU10", name: "Upper Lip Raise", muscle: "Levator labii superioris", region: "Lower" },
-  { au: "AU12", name: "Lip Corner Pull", muscle: "Zygomaticus major", region: "Lower" },
-  { au: "AU15", name: "Lip Corner Depress", muscle: "Depressor anguli oris", region: "Lower" },
-  { au: "AU17", name: "Chin Raise", muscle: "Mentalis", region: "Lower" },
-  { au: "AU20", name: "Lip Stretch", muscle: "Risorius, Platysma", region: "Lower" },
-  { au: "AU23", name: "Lip Tighten", muscle: "Orbicularis oris", region: "Lower" },
-  { au: "AU24", name: "Lip Press", muscle: "Orbicularis oris", region: "Lower" },
-  { au: "AU26", name: "Jaw Drop", muscle: "Masseter, Pterygoid", region: "Lower" },
+  { au: "AU1", name: "Inner Brow Raise", muscle: "Frontalis, pars medialis" },
+  { au: "AU2", name: "Outer Brow Raise", muscle: "Frontalis, pars lateralis" },
+  { au: "AU4", name: "Brow Lowerer", muscle: "Corrugator supercilii" },
+  { au: "AU5", name: "Upper Lid Raise", muscle: "Levator palpebrae" },
+  { au: "AU6", name: "Cheek Raise", muscle: "Orbicularis oculi" },
+  { au: "AU7", name: "Lid Tightener", muscle: "Orbicularis oculi" },
+  { au: "AU9", name: "Nose Wrinkle", muscle: "Levator labii sup. alaeque nasi" },
+  { au: "AU10", name: "Upper Lip Raise", muscle: "Levator labii superioris" },
+  { au: "AU12", name: "Lip Corner Pull", muscle: "Zygomaticus major" },
+  { au: "AU15", name: "Lip Corner Depress", muscle: "Depressor anguli oris" },
+  { au: "AU17", name: "Chin Raise", muscle: "Mentalis" },
+  { au: "AU20", name: "Lip Stretch", muscle: "Risorius, Platysma" },
+  { au: "AU23", name: "Lip Tighten", muscle: "Orbicularis oris" },
+  { au: "AU24", name: "Lip Press", muscle: "Orbicularis oris" },
+  { au: "AU26", name: "Jaw Drop", muscle: "Masseter, Pterygoid" },
 ];
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5 },
-};
 
 export default function FACSSection() {
   return (

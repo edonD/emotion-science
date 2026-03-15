@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 interface Tier {
   name: string;
@@ -68,13 +69,6 @@ const tiers: Tier[] = [
   },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5 },
-};
-
 export default function Courses() {
   return (
     <section id="courses" className="py-24 md:py-32">
@@ -97,10 +91,7 @@ export default function Courses() {
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              {...staggerChild(i)}
               className={`relative bg-card border rounded-lg p-7 flex flex-col ${
                 tier.popular
                   ? "border-accent shadow-lg shadow-accent/5"

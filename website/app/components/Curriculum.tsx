@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { terminalPreview } from "../lib/ascii";
+import { fadeUp, staggerChild } from "../lib/animations";
 
 const tiers = [
   {
@@ -60,13 +61,6 @@ const tiers = [
   },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5 },
-};
-
 export default function Curriculum() {
   return (
     <section id="curriculum" className="py-24 md:py-32">
@@ -106,10 +100,7 @@ export default function Curriculum() {
             {tiers.map((tier, i) => (
               <motion.div
                 key={tier.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                {...staggerChild(i)}
               >
                 <div className="flex items-baseline justify-between mb-3">
                   <h3 className="font-semibold">{tier.name}</h3>
