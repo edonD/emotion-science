@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { terminalPreview } from "../lib/ascii";
 import { fadeUp, staggerChild } from "../lib/animations";
 
 const tiers = [
@@ -139,42 +138,68 @@ export default function Curriculum() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Terminal preview */}
+          {/* Learning path visualization */}
           <motion.div
             {...fadeUp}
-            className="bg-[#1a1a1a] border border-[#333] rounded-lg p-6 order-2 lg:order-1"
+            className="bg-card border border-border rounded-xl p-8 order-2 lg:order-1"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 rounded-full bg-red-400" />
-              <span className="w-3 h-3 rounded-full bg-yellow-400" />
-              <span className="w-3 h-3 rounded-full bg-green-400" />
-              <span className="font-mono text-[9px] text-[#666] ml-2">
-                emotionlens v2.4 — curriculum browser
-              </span>
-            </div>
-            <pre className="font-mono text-xs text-green-400 select-none overflow-x-auto leading-relaxed">
-              {terminalPreview}
-            </pre>
+            <p className="font-mono text-[10px] text-muted tracking-wider mb-6">
+              YOUR LEARNING PATH
+            </p>
 
-            {/* Tier navigation in terminal */}
-            <div className="mt-4 pt-3 border-t border-[#333]">
-              <div className="font-mono text-[10px] text-[#666] mb-2">
-                $ select --tier
+            {/* Progress visualization */}
+            <div className="space-y-6">
+              {tiers.map((tier, i) => (
+                <button
+                  key={tier.name}
+                  onClick={() => setActiveTier(i)}
+                  className={`w-full text-left p-4 rounded-lg border transition-all ${
+                    activeTier === i
+                      ? `${tier.bgColor} ${tier.borderColor} shadow-sm`
+                      : "border-border hover:border-accent/20"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className={`font-semibold text-sm ${activeTier === i ? tier.color : ""}`}>
+                      {tier.name}
+                    </span>
+                    <span className="text-[10px] font-mono text-muted">
+                      {tier.hours}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 h-1.5 bg-border rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full rounded-full ${
+                          activeTier === i ? "bg-accent" : "bg-muted/30"
+                        }`}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${(i + 1) * 33}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: i * 0.2 }}
+                      />
+                    </div>
+                    <span className="text-[10px] font-mono text-muted">
+                      {tier.modules.reduce((sum, m) => sum + m.lessons.length, 0)} lessons
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Key metrics */}
+            <div className="mt-6 pt-6 border-t border-border grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="font-mono text-lg font-semibold text-accent">93–127</p>
+                <p className="text-[10px] text-muted">Total hours</p>
               </div>
-              <div className="flex gap-2">
-                {tiers.map((tier, i) => (
-                  <button
-                    key={tier.name}
-                    onClick={() => setActiveTier(i)}
-                    className={`font-mono text-[10px] px-2 py-1 rounded transition-all ${
-                      activeTier === i
-                        ? "bg-green-400/20 text-green-400"
-                        : "text-[#555] hover:text-[#888]"
-                    }`}
-                  >
-                    {tier.name}
-                  </button>
-                ))}
+              <div>
+                <p className="font-mono text-lg font-semibold text-accent">30+</p>
+                <p className="text-[10px] text-muted">Modules</p>
+              </div>
+              <div>
+                <p className="font-mono text-lg font-semibold text-accent">100+</p>
+                <p className="text-[10px] text-muted">Lessons</p>
               </div>
             </div>
           </motion.div>
@@ -254,21 +279,6 @@ export default function Curriculum() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Total stats */}
-            <div className="flex gap-6 pt-4 border-t border-border">
-              <div>
-                <p className="font-mono text-lg font-semibold text-accent">93–127</p>
-                <p className="text-[10px] text-muted">Total hours of content</p>
-              </div>
-              <div>
-                <p className="font-mono text-lg font-semibold text-accent">30+</p>
-                <p className="text-[10px] text-muted">Distinct modules</p>
-              </div>
-              <div>
-                <p className="font-mono text-lg font-semibold text-accent">100+</p>
-                <p className="text-[10px] text-muted">Individual lessons</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
