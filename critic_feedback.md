@@ -65,3 +65,31 @@ Always validate screenshots capture the actual user experience, not the pre-anim
 - No organization logos for social proof
 
 ---
+
+## Critic Session 3 — 2026-03-15 17:00 UTC
+
+### Scores
+- **Overall: 5.5/10**
+- **Trust with credit card: Hesitantly yes**
+
+### Key Feedback
+
+**First impression:** "Clean, competent, plays it so safe it borders on forgettable."
+
+**Best thing:** Hero FACS analysis card — "genuinely clever, the one moment that feels differentiated."
+
+**Worst thing:** "Page is brutally, punishingly long with almost no visual variety."
+
+### Three fixes demanded:
+1. Kill half the page length, add real media (video, photography)
+2. Put a human face on the brand — instructor section
+3. Add visual variety — page is "a wall of sameness"
+
+### Actions Taken:
+1. Added alternating section backgrounds for visual rhythm
+2. Added teal accent callout band with key stat
+3. Added dark trust band before CTA
+4. Enhanced SVG faces with anatomical detail
+5. Cannot address without real assets: photography, video, instructor bios
+
+---
