@@ -63,11 +63,11 @@ export default function Hero() {
     <section className="min-h-screen flex items-center pt-16 relative overflow-hidden">
       {/* Subtle grid background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.008]"
         style={{
           backgroundImage:
             "linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+          backgroundSize: "80px 80px",
         }}
       />
 

@@ -166,8 +166,8 @@ export default function FaceDiagram({
         rx="30"
         ry="35"
         stroke={color}
-        strokeWidth="0.8"
-        opacity="0.6"
+        strokeWidth="1.2"
+        opacity="0.5"
       />
 
       {/* Muscle highlight regions */}
@@ -177,9 +177,9 @@ export default function FaceDiagram({
             key={i}
             d={muscle.path}
             fill={color}
-            opacity="0.12"
+            opacity="0.15"
             stroke={color}
-            strokeWidth="0.3"
+            strokeWidth="0.5"
             strokeDasharray="2 1"
           />
         ))}
@@ -188,14 +188,14 @@ export default function FaceDiagram({
       <path
         d={config.browLeft}
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.8"
         strokeLinecap="round"
         fill="none"
       />
       <path
         d={config.browRight}
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.8"
         strokeLinecap="round"
         fill="none"
       />
@@ -204,38 +204,38 @@ export default function FaceDiagram({
       <path
         d={config.eyeLeft}
         stroke="currentColor"
-        strokeWidth="0.8"
+        strokeWidth="1.2"
         fill="currentColor"
-        fillOpacity="0.15"
+        fillOpacity="0.2"
       />
       <path
         d={config.eyeRight}
         stroke="currentColor"
-        strokeWidth="0.8"
+        strokeWidth="1.2"
         fill="currentColor"
-        fillOpacity="0.15"
+        fillOpacity="0.2"
       />
 
       {/* Pupils */}
-      <circle cx="35" cy="38" r="1.5" fill="currentColor" />
-      <circle cx="65" cy="38" r="1.5" fill="currentColor" />
+      <circle cx="35" cy="38" r="2" fill="currentColor" />
+      <circle cx="65" cy="38" r="2" fill="currentColor" />
 
       {/* Nose */}
       <path
         d={config.nose}
         stroke="currentColor"
-        strokeWidth="0.6"
+        strokeWidth="0.8"
         fill="none"
-        opacity="0.5"
+        opacity="0.6"
       />
 
       {/* Mouth */}
       <path
         d={config.mouth}
         stroke="currentColor"
-        strokeWidth="0.8"
+        strokeWidth="1.2"
         fill={color}
-        fillOpacity="0.08"
+        fillOpacity="0.1"
       />
 
       {/* AU labels */}
@@ -462,17 +462,17 @@ export function FACSInteractiveFace({
 
         {/* Static features */}
         {/* Brows */}
-        <path d="M 28 30 Q 35 27, 42 30" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-        <path d="M 58 30 Q 65 27, 72 30" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        <path d="M 28 30 Q 35 27, 42 30" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M 58 30 Q 65 27, 72 30" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         {/* Eyes */}
-        <path d="M 30 38 Q 35 35, 40 38 Q 35 41, 30 38" stroke="currentColor" strokeWidth="0.7" fill="currentColor" fillOpacity="0.1" />
-        <path d="M 60 38 Q 65 35, 70 38 Q 65 41, 60 38" stroke="currentColor" strokeWidth="0.7" fill="currentColor" fillOpacity="0.1" />
-        <circle cx="35" cy="38" r="1.5" fill="currentColor" />
-        <circle cx="65" cy="38" r="1.5" fill="currentColor" />
+        <path d="M 30 38 Q 35 35, 40 38 Q 35 41, 30 38" stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.15" />
+        <path d="M 60 38 Q 65 35, 70 38 Q 65 41, 60 38" stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.15" />
+        <circle cx="35" cy="38" r="2" fill="currentColor" />
+        <circle cx="65" cy="38" r="2" fill="currentColor" />
         {/* Nose */}
-        <path d="M 48 45 Q 50 48, 52 45" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
+        <path d="M 48 45 Q 50 48, 52 45" stroke="currentColor" strokeWidth="0.7" opacity="0.6" />
         {/* Mouth */}
-        <path d="M 38 58 Q 44 56, 50 57 Q 56 56, 62 58 Q 56 62, 50 63 Q 44 62, 38 58" stroke="currentColor" strokeWidth="0.7" fill="none" />
+        <path d="M 38 58 Q 44 56, 50 57 Q 56 56, 62 58 Q 56 62, 50 63 Q 44 62, 38 58" stroke="currentColor" strokeWidth="1" fill="none" />
       </svg>
 
       {/* Legend */}
