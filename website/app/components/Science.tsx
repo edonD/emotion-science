@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import FaceDiagram from "./FaceDiagram";
 import { fadeUp, staggerChild } from "../lib/animations";
 
 const emotions = [
@@ -142,16 +142,17 @@ export default function Science() {
                   : "border-border hover:border-accent/30"
               }`}
             >
-              {/* SVG Face */}
+              {/* Face image */}
               <div className="flex justify-center mb-4">
-                <FaceDiagram
-                  emotion={emotion.key}
-                  size={100}
-                  showLabels={false}
-                  showMuscles={activeEmotion === emotion.key}
-                  animated={false}
-                  accentColor={emotion.accentColor}
-                />
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-accent/20 transition-all">
+                  <Image
+                    src={`/faces/${emotion.key}.png`}
+                    alt={`${emotion.name} expression`}
+                    width={96}
+                    height={96}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
               <h3 className={`font-semibold text-sm mb-1 ${emotion.color}`}>

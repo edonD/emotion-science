@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import FaceDiagram from "./FaceDiagram";
 
 const emotions = [
   "happiness",
@@ -190,13 +190,15 @@ export default function Hero() {
             className="md:hidden flex justify-center -mt-4 mb-4"
           >
             <div className="bg-card border border-border rounded-lg px-5 py-4 inline-flex items-center gap-4">
-              <FaceDiagram
-                emotion={emotion}
-                size={70}
-                showLabels={false}
-                showMuscles={false}
-                animated={false}
-              />
+              <div className="w-16 h-16 rounded-full overflow-hidden shrink-0">
+                <Image
+                  src={`/faces/${emotion}.png`}
+                  alt={`${emotionLabels[emotion]} expression`}
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div>
                 <p className="font-mono text-[9px] text-muted tracking-wider">
                   DETECTED
@@ -232,7 +234,7 @@ export default function Hero() {
                 </span>
               </div>
 
-              {/* SVG Face — large and prominent */}
+              {/* Face image — large and prominent */}
               <div className="flex justify-center mb-6">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -241,13 +243,15 @@ export default function Hero() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
+                    className="w-52 h-52 rounded-full overflow-hidden border border-border shadow-sm"
                   >
-                    <FaceDiagram
-                      emotion={emotion}
-                      size={260}
-                      showLabels={true}
-                      showMuscles={true}
-                      animated={false}
+                    <Image
+                      src={`/faces/${emotion}.png`}
+                      alt={`${emotionLabels[emotion]} expression`}
+                      width={208}
+                      height={208}
+                      className="w-full h-full object-cover"
+                      priority
                     />
                   </motion.div>
                 </AnimatePresence>
